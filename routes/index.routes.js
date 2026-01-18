@@ -97,7 +97,7 @@ router.get('/download/:path', authMiddleware, async(req, res) => {
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
-    res.redirect('/');
+    res.redirect('/user/login');
 })
 
 module.exports = router;

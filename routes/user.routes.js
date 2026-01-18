@@ -34,7 +34,8 @@ router.post('/register',
 
         const hashedPassword = await bcrypt.hash(password, 10); //here 10 means 10 rounds of hashing; 
         const newUser = await userModel.create ({ username, email, password: hashedPassword });
-        res.json(newUser);
+        // res.json(newUser);
+        res.redirect('/user/login');
         
 })
 
@@ -83,7 +84,8 @@ router.post('/login',
         process.env.JWT_SECRET, 
     );
         res.cookie('token', token);
-        res.send('Login Successfull');
+        // res.send('Login Successfull');
+        res.redirect('/home');
 
     
 
