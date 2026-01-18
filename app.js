@@ -16,6 +16,12 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 
+// for error handling (Global error handling) //it is the last hope of the server or error handling// not good to use it in production inseted use try catch block
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    // process.exit(1); will stop the server 
+})
+
 
 
 app.listen(3000, () => {

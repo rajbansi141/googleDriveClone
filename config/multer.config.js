@@ -1,20 +1,13 @@
 const multer = require('multer');
-const supabaseStorage = require('@supabase/storage-js');
-const supabase = require('../config/supabase.config');
-const serviceAccount = require('./supabase.json');
-const File = require('../models/file.model');
 
-const storage = supabaseStorage({
-    credentials: Supabase.credentials.cert(serviceAccount),
-    bucketName: 'googleDriveClone'
-})
+const storage = multer.memoryStorage(); // Store files in memory
 
 const upload = multer({ 
     storage: storage,
-    // limits: {
-    //     fileSize: 1024 * 1024 * 5
-    // }
-    });
+    unique: true // to avoid overwriting files
+});
+
+module.exports = upload;
 
 // app.post('/upload', verifyJWT, upload.single('file'), async (req, res) => {
 //   try {

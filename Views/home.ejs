@@ -60,7 +60,7 @@
     </button>
 
     <!-- enctype="multipart/form-data" is important for file uploads service; without it we cant upload files -->
-    <form action="/upload-files" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
+    <form action="/upload" method="post" enctype="multipart/form-data" class="w-full max-w-lg">
         <div class="w-full max-w-lg">
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 space-y-6">
                 <div class="text-center">
@@ -94,6 +94,19 @@
             </div>
         </div>
     </form>
+
+    <!-- to display the files uploaded by the user  -->
+    <div class="files flex flex-wrap flex-col gap-2">
+        <% files.forEach(file => { %>
+        <div class="p-2 rounded-md bg-gray-300 cursor-pointer flex justify-between">
+            <h1><%= file.originalname %></h1>
+
+            <a href="/download/<%= file.path %>" download="<%= file.originalname %>" class="text-blue-500" target="_blank">
+                <i class="fas fa-download"></i> Download
+            </a>
+        </div>
+        <% }) %>
+    </div>
 
     <script>
         // DOM Elements
