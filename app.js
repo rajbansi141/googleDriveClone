@@ -3,6 +3,12 @@ const app = express();
 const userRouter = require('./routes/user.routes');
 const dotenv = require('dotenv');
 dotenv.config();
+
+if (!process.env.JWT_SECRET) {
+    console.error('JWT_SECRET is required');
+    process.exit(1);
+}
+
 const connectDB = require('./config/db');
 connectDB();
 const cookieParser = require('cookie-parser');
