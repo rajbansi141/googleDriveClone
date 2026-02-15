@@ -20,11 +20,23 @@ app.get('/', (req, res) => {
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 
+app.use((req, res) => {
+    res.status(404).redirect('/user/login');
+});
+
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).send('Something went wrong!');
+});
+
 // for error handling (Global error handling) //it is the last hope of the server or error handling// not good to use it in production inseted use try catch block
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
-    // process.exit(1); will stop the server 
-})
+});
+
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
+});
 
 
 

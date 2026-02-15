@@ -7,17 +7,18 @@ const authMiddleware = require('../middlewares/auth');
 
 
 router.get('/home', authMiddleware, async (req, res) => {
+    try {
+        const userFiles = await fileModel.find({
+            user: req.user.userId
+        });
 
-    const userFiles = await fileModel.find({
-        user: req.user.userId
-    });
-
-    console.log(userFiles);
-
-    res.render('home', {
-        files: userFiles
-    });
-
+        res.render('home', {
+            files: userFiles
+        });
+    } catch (err) {
+        console.error('Home error:', err);
+        res.status(500).send('Error loading home page');
+    }
 });
 
 router.post('/upload', authMiddleware, upload.single('file'), async (req, res) => {
@@ -51,7 +52,7 @@ router.post('/upload', authMiddleware, upload.single('file'), async (req, res) =
             user: req.user.userId,
         });
 
-        res.json(newFile);
+        res.redirect('/home');
     } catch (err) {
         console.error('Upload error:', err);
         res.status(500).json({ error: err.message });
