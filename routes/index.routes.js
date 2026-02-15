@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const userRouter = require('./user.routes');
 const upload = require('../config/multer.config');
 const supabase = require('../config/supabase.config');
 const fileModel = require('../models/file.model');
